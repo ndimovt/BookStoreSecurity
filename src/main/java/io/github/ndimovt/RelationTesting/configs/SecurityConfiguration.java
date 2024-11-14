@@ -1,5 +1,6 @@
 package io.github.ndimovt.RelationTesting.configs;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -20,14 +21,14 @@ import java.util.List;
 public class SecurityConfiguration {
     private final AuthenticationProvider authenticationProvider;
     private final JwtAuthenticationFilter authFilter;
-
     public SecurityConfiguration(AuthenticationProvider authenticationProvider, JwtAuthenticationFilter authFilter) {
         this.authenticationProvider = authenticationProvider;
         this.authFilter = authFilter;
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
-        httpSecurity.
+        return httpSecurity.
                 csrf(AbstractHttpConfigurer::disable).
                 authorizeHttpRequests(authorize -> authorize.requestMatchers("/book/byAuthorName/**", "/auth/**").
                         permitAll().
@@ -38,7 +39,6 @@ public class SecurityConfiguration {
                 authenticationProvider(authenticationProvider).
                 addFilterBefore(authFilter, UsernamePasswordAuthenticationFilter.class).
                 build();
-        return httpSecurity.build();
     }
     @Bean
     CorsConfigurationSource corsConfigurationSource(){

@@ -1,6 +1,7 @@
 package io.github.ndimovt.RelationTesting.configs;
 
 import io.github.ndimovt.RelationTesting.repository.UserRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -38,7 +39,7 @@ public class ApplicationConfiguration {
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setUserDetailsService(userDetailsService());
         daoAuthenticationProvider.setPasswordEncoder(encoder());
-        return authenticationProvider();
+        return daoAuthenticationProvider;
     }
 
 
