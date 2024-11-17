@@ -1,6 +1,5 @@
 package io.github.ndimovt.RelationTesting.configs;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -25,12 +24,11 @@ public class SecurityConfiguration {
         this.authenticationProvider = authenticationProvider;
         this.authFilter = authFilter;
     }
-
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity.
                 csrf(AbstractHttpConfigurer::disable).
-                authorizeHttpRequests(authorize -> authorize.requestMatchers("/book/byAuthorName/**", "/auth/**").
+                authorizeHttpRequests(authorize -> authorize.requestMatchers("/book/**", "/auth/**").
                         permitAll().
                         anyRequest().
                         authenticated()

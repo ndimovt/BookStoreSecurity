@@ -56,6 +56,7 @@ public class BookService {
         return books;
     }
     public boolean deleteBook(String bookName){
+        bookRepository.deleteAuthorByBookTitle(bookName);
         return bookRepository.deleteByBookName(bookName) > 0;
     }
 }

@@ -6,8 +6,6 @@ import jakarta.validation.constraints.Pattern;
 import jdk.jfr.Name;
 import lombok.Data;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,7 +26,7 @@ public class Book {
     @NotBlank(message = "Genre can't be empty!")
     @Pattern(regexp = "^[a-zA-Z,\\s]{5,}$", message = "Genre must contain at least 5 characters and only letters, spaces, or commas!")
     private String genre;
-    @OneToMany(targetEntity = Author.class, orphanRemoval = true)
+    @OneToMany(targetEntity = Author.class, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "books_id", referencedColumnName = "id")
     private Set<Author> authors;
 
