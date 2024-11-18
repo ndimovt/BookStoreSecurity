@@ -3,11 +3,9 @@ package io.github.ndimovt.RelationTesting.service;
 import io.github.ndimovt.RelationTesting.exceptin.BookAlreadyPresentException;
 import io.github.ndimovt.RelationTesting.model.Author;
 import io.github.ndimovt.RelationTesting.model.Book;
-import io.github.ndimovt.RelationTesting.model.BookDto;
+import io.github.ndimovt.RelationTesting.model.dtos.BookDto;
 import io.github.ndimovt.RelationTesting.repository.AuthorRepository;
 import io.github.ndimovt.RelationTesting.repository.BookRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -15,10 +13,14 @@ import java.util.stream.Collectors;
 
 @Service
 public class BookService {
-    @Autowired
-    private AuthorRepository authorRepository;
-    @Autowired
-    private BookRepository bookRepository;
+    private final AuthorRepository authorRepository;
+    private final BookRepository bookRepository;
+
+    public BookService(AuthorRepository authorRepository, BookRepository bookRepository) {
+        this.authorRepository = authorRepository;
+        this.bookRepository = bookRepository;
+    }
+
     public void insertBook(Book book){
         existingTitle(book);
         Book bookInfo = new Book();

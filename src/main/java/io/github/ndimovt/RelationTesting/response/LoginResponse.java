@@ -1,7 +1,5 @@
 package io.github.ndimovt.RelationTesting.response;
 
-import lombok.*;
-
 public class LoginResponse {
     private String token;
     private Long expiresIn;

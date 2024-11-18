@@ -1,4 +1,4 @@
-package io.github.ndimovt.RelationTesting.model;
+package io.github.ndimovt.RelationTesting.model.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

@@ -1,11 +1,10 @@
 package io.github.ndimovt.RelationTesting.controller;
 
 import io.github.ndimovt.RelationTesting.model.Book;
-import io.github.ndimovt.RelationTesting.model.BookDto;
+import io.github.ndimovt.RelationTesting.model.dtos.BookDto;
 import io.github.ndimovt.RelationTesting.service.BookService;
 import io.github.ndimovt.RelationTesting.validator.NameConstraint;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -16,8 +15,12 @@ import java.util.List;
 @RestController
 @Validated
 public class BookController {
-    @Autowired
-    private BookService bookService;
+    private final BookService bookService;
+
+    public BookController(BookService bookService) {
+        this.bookService = bookService;
+    }
+
     @PostMapping("/book/add")
     public ResponseEntity<String> addBook(@Valid @RequestBody Book book){
         bookService.insertBook(book);
