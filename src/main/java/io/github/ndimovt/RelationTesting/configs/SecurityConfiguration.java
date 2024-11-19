@@ -28,7 +28,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity.
                 csrf(AbstractHttpConfigurer::disable).
-                authorizeHttpRequests(authorize -> authorize.requestMatchers("/book/**", "/auth/**").
+                authorizeHttpRequests(authorize -> authorize.requestMatchers("/book/add", "book/delete/**","/auth/**").
                         permitAll().
                         anyRequest().
                         authenticated()
@@ -42,7 +42,7 @@ public class SecurityConfiguration {
     CorsConfigurationSource corsConfigurationSource(){
         CorsConfiguration corsConfiguration = new CorsConfiguration();
         corsConfiguration.setAllowedOrigins(List.of("http://localhost:8086"));
-        corsConfiguration.setAllowedMethods(List.of("GET", "POST"));
+        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "DELETE", "PUT"));
         corsConfiguration.setAllowedHeaders(List.of("Authorization", "Content-Type"));
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

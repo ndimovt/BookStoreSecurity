@@ -7,6 +7,8 @@ import io.github.ndimovt.RelationTesting.validator.NameConstraint;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,9 +24,12 @@ public class BookController {
     }
 
     @PostMapping("/book/add")
-    public ResponseEntity<String> addBook(@Valid @RequestBody Book book){
-        bookService.insertBook(book);
-        return ResponseEntity.ok("Success");
+    public ResponseEntity<String> addBook(@Valid @RequestBody Book book, @AuthenticationPrincipal UserDetails userDetails){
+        if(userDetails != null){
+            bookService.insertBook(book);
+            return ResponseEntity.ok("Record successfully added!");
+        }
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found!");
     }
     @GetMapping("/book/byAuthorName/{name}")
     public ResponseEntity<List<BookDto>> getBooks(@Valid @PathVariable @NameConstraint String name){
@@ -32,9 +37,9 @@ public class BookController {
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
     @DeleteMapping("/book/delete/{bookName}")
-    public ResponseEntity<String> delete(@Valid @PathVariable @NameConstraint String bookName){
+    public ResponseEntity<String> delete(@Valid @PathVariable @NameConstraint String bookName, @AuthenticationPrincipal UserDetails userDetails){
         if(bookService.deleteBook(bookName)){
-            return ResponseEntity.ok("Book deleted");
+            return ResponseEntity.ok("Book deleted!");
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
