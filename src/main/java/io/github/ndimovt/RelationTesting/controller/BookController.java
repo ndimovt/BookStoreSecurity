@@ -2,6 +2,7 @@ package io.github.ndimovt.RelationTesting.controller;
 
 import io.github.ndimovt.RelationTesting.model.Book;
 import io.github.ndimovt.RelationTesting.model.dtos.BookDto;
+import io.github.ndimovt.RelationTesting.model.dtos.LogInUserDto;
 import io.github.ndimovt.RelationTesting.service.BookService;
 import io.github.ndimovt.RelationTesting.validator.NameConstraint;
 import jakarta.validation.Valid;
@@ -9,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,12 +26,9 @@ public class BookController {
     }
 
     @PostMapping("/book/add")
-    public ResponseEntity<String> addBook(@Valid @RequestBody Book book, @AuthenticationPrincipal UserDetails userDetails){
-        if(userDetails != null){
-            bookService.insertBook(book);
-            return ResponseEntity.ok("Record successfully added!");
-        }
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not found!");
+    public ResponseEntity<String> addBook(@Valid @RequestBody Book book){
+        bookService.insertBook(book);
+        return ResponseEntity.ok("Record successfully added!");
     }
     @GetMapping("/book/byAuthorName/{name}")
     public ResponseEntity<List<BookDto>> getBooks(@Valid @PathVariable @NameConstraint String name){
@@ -37,7 +36,7 @@ public class BookController {
         return new ResponseEntity<>(books, HttpStatus.OK);
     }
     @DeleteMapping("/book/delete/{bookName}")
-    public ResponseEntity<String> delete(@Valid @PathVariable @NameConstraint String bookName, @AuthenticationPrincipal UserDetails userDetails){
+    public ResponseEntity<String> delete(@Valid @PathVariable @NameConstraint String bookName){
         if(bookService.deleteBook(bookName)){
             return ResponseEntity.ok("Book deleted!");
         }

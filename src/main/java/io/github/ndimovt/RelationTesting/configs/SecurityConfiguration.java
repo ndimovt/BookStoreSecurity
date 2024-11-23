@@ -28,7 +28,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity.
                 csrf(AbstractHttpConfigurer::disable).
-                authorizeHttpRequests(authorize -> authorize.requestMatchers("/book/add", "book/delete/**","/auth/**").
+                authorizeHttpRequests(authorize -> authorize.requestMatchers("book/byAuthorName/**","/auth/**").
                         permitAll().
                         anyRequest().
                         authenticated()
