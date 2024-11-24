@@ -8,6 +8,9 @@ import lombok.Data;
 
 import java.util.Set;
 
+/**
+ * The class Book
+ */
 @Entity
 @Data
 @Table(name = "book")
@@ -30,6 +33,9 @@ public class Book {
     @JoinColumn(name = "books_id", referencedColumnName = "id")
     private Set<Author> authors;
 
+    /**
+     * Instantiates Book
+     */
     public Book() {
     }
 }

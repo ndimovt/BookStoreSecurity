@@ -5,6 +5,9 @@ import lombok.Data;
 
 import java.util.List;
 
+/**
+ * The class BookDto
+ */
 @Data
 @AllArgsConstructor
 public class BookDto {

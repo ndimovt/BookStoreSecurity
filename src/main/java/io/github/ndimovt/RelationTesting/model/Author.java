@@ -6,6 +6,9 @@ import jakarta.validation.constraints.Pattern;
 import jdk.jfr.Name;
 import lombok.Data;
 
+/**
+ * The class Author
+ */
 @Entity
 @Data
 @Table(name = "author")

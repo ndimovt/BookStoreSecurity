@@ -11,6 +11,9 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * The class User
+ */
 @Entity
 @Table(name = "users")
 @Data
@@ -35,6 +38,14 @@ public class User implements UserDetails {
     @UpdateTimestamp
     private Date updatedAt;
 
+    /**
+     * Instantiates User
+     * @param id Long object
+     * @param name String object
+     * @param username String object
+     * @param password String object
+     * @param createdAt Date object
+     */
     public User(Long id, String name, String username, String password, Date createdAt) {
         this.id = id;
         this.name = name;
@@ -43,26 +54,46 @@ public class User implements UserDetails {
         this.createdAt = createdAt;
     }
 
+    /**
+     * Returns list of authorities
+     * @return List object
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
     }
 
+    /**
+     * Checks if account is not expired
+     * @return Boolean primitive
+     */
     @Override
     public boolean isAccountNonExpired() {
         return true;
     }
 
+    /**
+     * Checks if account is not locked
+     * @return Boolean primitive
+     */
     @Override
     public boolean isAccountNonLocked() {
         return true;
     }
 
+    /**
+     * Checks if account is not expired
+     * @return Boolean primitive
+     */
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
     }
 
+    /**
+     * Checks if account is enabled
+     * @return Boolean primitive
+     */
     @Override
     public boolean isEnabled() {
         return true;

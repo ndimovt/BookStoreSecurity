@@ -9,7 +9,6 @@ import io.github.ndimovt.RelationTesting.repository.BookRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class BookService {
@@ -27,15 +26,6 @@ public class BookService {
         bookInfo.setTitle(book.getTitle());
         bookInfo.setGenre(book.getGenre());
         Set<Author> authors = book.getAuthors();
-
-//        Set<Author> authorsList = book.getAuthors().stream().map(author -> {
-//            return authorRepository.findByName(author.getName())
-//                    .orElseGet(() -> {
-//                        Author authors = new Author();
-//                        authors.setName(author.getName());
-//                        return authorRepository.save(authors);
-//                    });
-//        }).collect(Collectors.toSet());
         bookInfo.setAuthors(authors);
         authors.forEach(authorRepository::save);
         bookRepository.save(bookInfo);

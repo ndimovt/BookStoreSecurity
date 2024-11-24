@@ -10,9 +10,23 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * The BookRepository interface
+ */
 @Repository
 public interface BookRepository extends JpaRepository<Book, Long> {
+    /**
+     * Returns Book object by a given name
+     * @param name String object
+     * @return Book object
+     */
     Optional<Book> findByTitle(String name);
+
+    /**
+     * Joins author and book table based on ids
+     * @param name String object
+     * @return List of object/s
+     */
     @Query(value = """
             SELECT b.title, b.genre, STRING_AGG(a.name, ', ')
             FROM book b
@@ -24,6 +38,10 @@ public interface BookRepository extends JpaRepository<Book, Long> {
     nativeQuery = true)
     List<Object[]> getBooksByAuthorName(String name);
 
+    /**
+     * Deletes author record from database by a given name
+     * @param title String object
+     */
     @Modifying
     @Transactional
     @Query(value = """
@@ -32,6 +50,11 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             """, nativeQuery = true)
     void deleteAuthorByBookTitle(String title);
 
+    /**
+     * Deletes book from database by a given name
+     * @param name String object
+     * @return Int primitive
+     */
     @Modifying
     @Transactional
     @Query(value = """
