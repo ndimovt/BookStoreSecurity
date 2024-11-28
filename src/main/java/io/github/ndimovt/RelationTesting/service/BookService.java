@@ -10,16 +10,29 @@ import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+/**
+ * The class BookService
+ */
 @Service
 public class BookService {
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
+
+    /**
+     * Instantiating BookService
+     * @param authorRepository AuthorRepository object
+     * @param bookRepository BookRepository object
+     */
 
     public BookService(AuthorRepository authorRepository, BookRepository bookRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
     }
 
+    /**
+     * Insert Book object into database. Checks for existing record. May throw exception is such book already exists.
+     * @param book Book object
+     */
     public void insertBook(Book book){
         existingTitle(book);
         Book bookInfo = new Book();
@@ -36,6 +49,12 @@ public class BookService {
             throw new BookAlreadyPresentException("Book title is already present!");
         }
     }
+
+    /**
+     * Returns List of BookDto containing books based on author name criteria.
+     * @param name String object
+     * @return List object
+     */
     public List<BookDto> getBooksByAuthorName(String name){
         List<Object[]> objects = bookRepository.getBooksByAuthorName(name);
         List<BookDto> books = new ArrayList<>();
@@ -50,6 +69,12 @@ public class BookService {
         }
         return books;
     }
+
+    /**
+     * Deletes book by book name. Returns true if there is one or more deleted records.
+     * @param bookName String object
+     * @return boolean primitive
+     */
     public boolean deleteBook(String bookName){
         bookRepository.deleteAuthorByBookTitle(bookName);
         return bookRepository.deleteByBookName(bookName) > 0;
