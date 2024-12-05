@@ -3,8 +3,8 @@ package io.github.ndimovt.RelationTesting.model;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -34,9 +34,8 @@ public class User implements UserDetails {
     @Column(updatable = false, name = "created_at")
     @CreationTimestamp
     private Date createdAt;
-    @Column(name = "updated_at")
-    @UpdateTimestamp
-    private Date updatedAt;
+    @Column(name = "role")
+    private String role;
 
     /**
      * Instantiates User
@@ -45,13 +44,15 @@ public class User implements UserDetails {
      * @param username String object
      * @param password String object
      * @param createdAt Date object
+     * @param role String object
      */
-    public User(Long id, String name, String username, String password, Date createdAt) {
+    public User(Long id, String name, String username, String password, Date createdAt, String role) {
         this.id = id;
         this.name = name;
         this.username = username;
         this.password = password;
         this.createdAt = createdAt;
+        this.role = role;
     }
 
     /**
@@ -60,7 +61,7 @@ public class User implements UserDetails {
      */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return List.of(new SimpleGrantedAuthority(this.role));
     }
 
     /**

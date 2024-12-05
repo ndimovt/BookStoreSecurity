@@ -1,5 +1,6 @@
 package io.github.ndimovt.RelationTesting.configs;
 
+import io.github.ndimovt.RelationTesting.roles.Roles;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -44,10 +45,10 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception{
         return httpSecurity.
                 csrf(AbstractHttpConfigurer::disable).
-                authorizeHttpRequests(authorize -> authorize.requestMatchers("book/byAuthorName/**","/auth/**").
-                        permitAll().
-                        anyRequest().
-                        authenticated()
+                authorizeHttpRequests(authorize -> authorize.
+                        requestMatchers("book/byAuthorName/**").hasAnyAuthority(Roles.USER.name(), Roles.ADMIN.name()).
+                        requestMatchers("/book/delete/**").hasAuthority(Roles.ADMIN.name()).
+                        requestMatchers("/auth/**").permitAll()
                 ).
                 sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).
                 authenticationProvider(authenticationProvider).

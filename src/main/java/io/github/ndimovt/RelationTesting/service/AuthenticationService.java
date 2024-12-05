@@ -4,6 +4,7 @@ import io.github.ndimovt.RelationTesting.model.User;
 import io.github.ndimovt.RelationTesting.model.dtos.LogInUserDto;
 import io.github.ndimovt.RelationTesting.model.dtos.RegisterUserDto;
 import io.github.ndimovt.RelationTesting.repository.UserRepository;
+import io.github.ndimovt.RelationTesting.roles.Roles;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -43,6 +44,7 @@ public class AuthenticationService {
         user.setUsername(input.getUsername());
         user.setPassword(passwordEncoder.encode(input.getPassword()));
         user.setCreatedAt(input.getCreatedAt());
+        user.setRole(Roles.USER.name());
 
         return userRepository.save(user);
     }
