@@ -31,8 +31,8 @@ public class AuthorController {
      * @return ResponseEntity instance
      */
     @PostMapping("/author/add")
-    public ResponseEntity<String> addCategory(@Valid @RequestBody Author author){
+    public ResponseEntity<String> addAuthor(@Valid @RequestBody Author author){
         authorService.insertAuthor(author);
-        return ResponseEntity.ok("Success");
+        return ResponseEntity.ok("Author inserted successfully!");
     }
 }
