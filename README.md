@@ -1,2 +1,1 @@
-In this project i implemented backend logic for book keeping system where you can insert book and authors and also deletes them. I used SpringSecurity to protect user account info. 
-Used technologies: Spring, Java, PostgreSQL.
+I developed the backend logic for a book-keeping system, allowing users to manage books and authors by adding and deleting entries. Implemented password encryption, role-based access control, and account-based restrictions using Spring Security to ensure data protection and secure user account management. The project was built using Spring Framework, Java, and PostgreSQL, providing a secure and efficient data management solution.
