@@ -79,4 +79,7 @@ public class BookService {
         bookRepository.deleteAuthorByBookTitle(bookName);
         return bookRepository.deleteByBookName(bookName) > 0;
     }
+    public int changeTitle(String newName, String oldName){
+        return bookRepository.updateBookTitle(newName, oldName);
+    }
 }

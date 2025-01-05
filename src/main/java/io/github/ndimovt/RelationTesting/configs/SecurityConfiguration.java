@@ -48,7 +48,7 @@ public class SecurityConfiguration {
                 authorizeHttpRequests(authorize -> authorize.
                         requestMatchers("book/byAuthorName/**").hasAnyAuthority(Roles.USER.name(), Roles.ADMIN.name()).
                         requestMatchers("/book/delete/**", "/author/add").hasAuthority(Roles.ADMIN.name()).
-                        requestMatchers("/auth/**").permitAll()
+                        requestMatchers("/auth/**", "/book/changeTitle/**").permitAll()
                 ).
                 sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)).
                 authenticationProvider(authenticationProvider).

@@ -65,4 +65,12 @@ public class BookController {
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+    @PutMapping("/book/changeTitle/{newTitle}/{oldTitle}")
+    public ResponseEntity<String> changeTitle(@PathVariable String newTitle, @PathVariable  String oldTitle){
+        if(bookService.changeTitle(newTitle, oldTitle) > 0){
+            return ResponseEntity.ok("Yes");
+        }
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No");
+    }
+
 }
