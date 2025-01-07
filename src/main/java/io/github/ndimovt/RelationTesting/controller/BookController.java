@@ -65,12 +65,19 @@ public class BookController {
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
+
+    /**
+     * Update book title
+     * @param newTitle String object
+     * @param oldTitle String object
+     * @return ResponseEntity object
+     */
     @PutMapping("/book/changeTitle/{newTitle}/{oldTitle}")
     public ResponseEntity<String> changeTitle(@PathVariable String newTitle, @PathVariable  String oldTitle){
         if(bookService.changeTitle(newTitle, oldTitle) > 0){
-            return ResponseEntity.ok("Yes");
+            return ResponseEntity.ok("Title updated successfully!");
         }
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("No");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Title update failed!");
     }
 
 }

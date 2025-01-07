@@ -63,6 +63,13 @@ public interface BookRepository extends JpaRepository<Book, Long> {
             """,
     nativeQuery = true)
     int deleteByBookName(String name);
+
+    /**
+     * Updates book title
+     * @param newName String object
+     * @param oldName String object
+     * @return Int primitive
+     */
     @Modifying
     @Transactional
     @Query(value = """

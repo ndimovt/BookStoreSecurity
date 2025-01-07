@@ -79,6 +79,13 @@ public class BookService {
         bookRepository.deleteAuthorByBookTitle(bookName);
         return bookRepository.deleteByBookName(bookName) > 0;
     }
+
+    /**
+     * Updates existing book title with a new one
+     * @param newName String object
+     * @param oldName String object
+     * @return Int primitive
+     */
     public int changeTitle(String newName, String oldName){
         return bookRepository.updateBookTitle(newName, oldName);
     }
